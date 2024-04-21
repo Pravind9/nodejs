@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeJS::Registration</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    {{!-- Navigation links --}}
+    <nav>
+        <h4>NodeJS Sample Application</h4>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/usrMgt">User Mgt</a></li>
+        </ul>
+    </nav>
+
+    {{!-- Body --}}
+    <div class="container mt-4">
+        <div class="card" style="width: 100%;">
+            <div class="card-header">User Managment Form</div>
+            <div class="card-body">
+                <form action="/api/search" method="POST">
+                    <div class="mb-3">
+                        <label for="email-ser" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email-ser" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="name-ser" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name-ser" name="name">
+                    </div>
+                    <div class="div-content">
+                        <button type="submit" class="btn btn-primary" style="width: 20%;"><i class="fa fa-search"></i>&nbsp;Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{#if userList }}
+    <div class="container mt-4">
+        <div class="card" style="width: 100%;">
+            <table class="table table-striped table-light">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Oid</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each userList}}
+                    <tr>
+                        <th scope="row">{{@index}}</th>
+                        <td><a href="/api/user/edit/{{this.oid}}">{{this.oid}}</a></td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.email}}</td>
+                        <td><a href="/api/user/del/{{this.oid}}" class="anchor">
+                                <i class="fa fa-trash" style="font-size:1.5rem;color:red;padding:3px"></i>
+                            </a>
+                            <a href="/api/user/edit/{{this.oid}}" class="anchor">
+                                <i class="fa fa-edit" style="font-size: 1.5rem;color:green;padding:3px"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="container mt-4">
+        {{#if message }}
+        <h4 class="alert alert-danger mt-4">{{message}}</h4>
+        {{/if}}
+    </div>
+    <!--<div class="footer">
+        <p>&copy; All rights reserved</p>
+    </div> -->
+</body>
+
+</html>
